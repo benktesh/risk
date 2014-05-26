@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbRiskModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblProjectDescription">
+    <Key>
+      <PropertyRef Name="CN" />
+    </Key>
+    <Property Name="CN" Type="Single" Nullable="false" />
+    <Property Name="USERID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PROJECTID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PROJECTNAME" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="COUNTRY" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="LATITUDE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="LONGITUDE" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="POSTALADDRESS" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+    <Property Name="PROJECTSTARTDATE" Type="DateTime" Precision="7" />
+    <Property Name="DATETIME" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="tblRisk">
+    <Key>
+      <PropertyRef Name="CN" />
+    </Key>
+    <Property Name="CN" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="PROJECTID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="USERID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SCENARIOID" Type="Int32" Nullable="false" />
+    <Property Name="DATE" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+    <Property Name="PM_A" Type="Int32" Nullable="false" />
+    <Property Name="PM_B" Type="Int32" Nullable="false" />
+    <Property Name="PM_C" Type="Int32" Nullable="false" />
+    <Property Name="PM_D" Type="Int32" Nullable="false" />
+    <Property Name="PM_E" Type="Int32" Nullable="false" />
+    <Property Name="PM_F" Type="Int32" Nullable="false" />
+    <Property Name="FV_A_D" Type="Int32" Nullable="false" />
+    <Property Name="FV_A_D_NAME" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="FV_E_H" Type="Int32" Nullable="false" />
+    <Property Name="FV_E_H_NAME" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="FV_I" Type="Int32" Nullable="false" />
+    <Property Name="OC_A_F" Type="Int32" Nullable="false" />
+    <Property Name="OC_A_F_NAME" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="OC_G" Type="Int32" Nullable="false" />
+    <Property Name="OC_H_I" Type="Int32" Nullable="false" />
+    <Property Name="OC_H_I_NAME" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="PL" Type="Int32" Nullable="false" />
+    <Property Name="PL_NAME" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RISKVALUE">
+    <Key>
+      <PropertyRef Name="CN" />
+      <PropertyRef Name="DATESTAMP" />
+    </Key>
+    <Property Name="CN" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DATESTAMP" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RISKDOCVERSION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RISKCATEGORY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="COMPONENT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PARAMETERID" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="PARAMETERGROUP" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="PARAMETERSHORT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="RISKSCORE" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="dbRiskEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblProjectDescriptions" EntityType="Self.tblProjectDescription" />
+    <EntitySet Name="tblRisks" EntityType="Self.tblRisk" />
+    <EntitySet Name="RISKVALUES" EntityType="Self.RISKVALUE" />
+  </EntityContainer>
+</Schema>

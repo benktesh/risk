@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    Internal risk related input for project management, financial vialbity and opporunity costs are completed.
+
+    TODO:
+    Complete other parts.
+    Prepare reporting template.
+    Fetch WB Data for 'external' risk.
+
+    Make Jason Objects for three risk components.
+
+    Project Management:
+        All the selectedItemIndex, values (none or more than 1)
+    Financial Viablity:
+        All the selectedItemIndex, values (one or more)
+    Opporuntity Cost:
+        SelectedItem from radio group 1, value (one)
+        SelectedCheckBox, Value (1 or none)
+        SelectedItem from radio group 2, value (one or none)
+
+    WB WGI API is a little difficult to navigate. 
+    Howver, teh following query would work:
+
+    http://api.worldbank.org/countries/NP/indicators/GE.EST?source=3
+
+    Needed Indicators:
+
+    CC.EST  //Corruption control
+    GE.EST  //Government Effectiveness
+    PV.EST  //Political Stability and Absence of Violence/Terrorism
+    RL.EST  //Rule of Law
+    RQ.EST  //Regulatory Quality
+    VA.EST  //Voice and Accountability
+    
+    
+
+    CC.EST
+    CC.NO.SRC
+    CC.PER.RNK
+    CC.STD.ERR
+    GE.EST
+    GE.NO.SRC
+    GE.PER.RNK
+    GE.STD.ERR
+    PV.EST
+    PV.NO.SRC
+    PV.PER.RNK
+    PV.STD.ERR
+    RL.EST
+    RL.NO.SRC
+    RL.PER.RNK
+    RL.STD.ERR
+    RQ.EST
+    RQ.NO.SRC
+    RQ.PER.RNK
+    RQ.STD.ERR
+    VA.EST
+    VA.NO.SRC
+    VA.PER.RNK
+    VA.STD.ERR
+
+    List of API supported data sources:
+    http://api.worldbank.org/sources
+
+    World Governance Indicators (WGI) source:
+    http://api.worldbank.org/sources/3
+
+    Get the list of indicators from WGI source:
+    http://api.worldbank.org/sources/3/indicators
+
+    Get the WGI Indicator data (for ex., CC.EST) for all countries:
+    http://api.worldbank.org/countries/all/indicators/CC.EST?source=3
+
+    Get the WGI Indicator data (for ex., CC.EST) for given countries:
+    http://api.worldbank.org/countries/ago;chn;abw;usa/indicators/CC.EST?source=3
+
+    Refer http://data.worldbank.org/node/11 for more information about the
+    API call structures, and API query builder at: http://data.worldbank.org/querybuilder
+    Worldbank's data catalog exists at: http://data.worldbank.org/data-catalog 
+</body>
+</html>

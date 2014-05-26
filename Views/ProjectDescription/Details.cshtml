@@ -1,0 +1,98 @@
+﻿@model Risk.Models.ProjectDescription
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>ProjectDescription</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.USERID)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.USERID)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PROJECTNAME)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PROJECTNAME)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.COUNTRY)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.COUNTRY)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LATITUDE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LATITUDE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.LONGITUDE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.LONGITUDE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.POSTALADDRESS)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.POSTALADDRESS)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PROJECTSTARTDATE)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PROJECTSTARTDATE)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TIMESTAMP)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TIMESTAMP)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.DATEUPDATED)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DATEUPDATED)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CN }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbRiskModelStoreContainer" CdmEntityContainer="dbRiskEntities">
+    <EntitySetMapping Name="tblProjectDescriptions">
+      <EntityTypeMapping TypeName="dbRiskModel.tblProjectDescription">
+        <MappingFragment StoreEntitySet="tblProjectDescription">
+          <ScalarProperty Name="CN" ColumnName="CN" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
+          <ScalarProperty Name="PROJECTNAME" ColumnName="PROJECTNAME" />
+          <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+          <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+          <ScalarProperty Name="LONGITUDE" ColumnName="LONGITUDE" />
+          <ScalarProperty Name="POSTALADDRESS" ColumnName="POSTALADDRESS" />
+          <ScalarProperty Name="PROJECTSTARTDATE" ColumnName="PROJECTSTARTDATE" />
+          <ScalarProperty Name="DATETIME" ColumnName="DATETIME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRisks">
+      <EntityTypeMapping TypeName="dbRiskModel.tblRisk">
+        <MappingFragment StoreEntitySet="tblRisk">
+          <ScalarProperty Name="CN" ColumnName="CN" />
+          <ScalarProperty Name="PROJECTID" ColumnName="PROJECTID" />
+          <ScalarProperty Name="USERID" ColumnName="USERID" />
+          <ScalarProperty Name="SCENARIOID" ColumnName="SCENARIOID" />
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+          <ScalarProperty Name="PM_A" ColumnName="PM_A" />
+          <ScalarProperty Name="PM_B" ColumnName="PM_B" />
+          <ScalarProperty Name="PM_C" ColumnName="PM_C" />
+          <ScalarProperty Name="PM_D" ColumnName="PM_D" />
+          <ScalarProperty Name="PM_E" ColumnName="PM_E" />
+          <ScalarProperty Name="PM_F" ColumnName="PM_F" />
+          <ScalarProperty Name="FV_A_D" ColumnName="FV_A_D" />
+          <ScalarProperty Name="FV_A_D_NAME" ColumnName="FV_A_D_NAME" />
+          <ScalarProperty Name="FV_E_H" ColumnName="FV_E_H" />
+          <ScalarProperty Name="FV_E_H_NAME" ColumnName="FV_E_H_NAME" />
+          <ScalarProperty Name="FV_I" ColumnName="FV_I" />
+          <ScalarProperty Name="OC_A_F" ColumnName="OC_A_F" />
+          <ScalarProperty Name="OC_A_F_NAME" ColumnName="OC_A_F_NAME" />
+          <ScalarProperty Name="OC_G" ColumnName="OC_G" />
+          <ScalarProperty Name="OC_H_I" ColumnName="OC_H_I" />
+          <ScalarProperty Name="OC_H_I_NAME" ColumnName="OC_H_I_NAME" />
+          <ScalarProperty Name="PL" ColumnName="PL" />
+          <ScalarProperty Name="PL_NAME" ColumnName="PL_NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RISKVALUES">
+      <EntityTypeMapping TypeName="dbRiskModel.RISKVALUE">
+        <MappingFragment StoreEntitySet="RISKVALUES">
+          <ScalarProperty Name="CN" ColumnName="CN" />
+          <ScalarProperty Name="DATESTAMP" ColumnName="DATESTAMP" />
+          <ScalarProperty Name="RISKDOCVERSION" ColumnName="RISKDOCVERSION" />
+          <ScalarProperty Name="RISKCATEGORY" ColumnName="RISKCATEGORY" />
+          <ScalarProperty Name="COMPONENT" ColumnName="COMPONENT" />
+          <ScalarProperty Name="PARAMETERID" ColumnName="PARAMETERID" />
+          <ScalarProperty Name="PARAMETERGROUP" ColumnName="PARAMETERGROUP" />
+          <ScalarProperty Name="PARAMETERSHORT" ColumnName="PARAMETERSHORT" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="RISKSCORE" ColumnName="RISKSCORE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

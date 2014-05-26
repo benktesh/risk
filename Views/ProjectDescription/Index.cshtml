@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Risk.Models.ProjectDescription>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    
+    <table class="table">
+        <tr>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.PROJECTNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.COUNTRY)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LATITUDE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LONGITUDE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.POSTALADDRESS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PROJECTSTARTDATE)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+ 
+            <td>
+                @Html.DisplayFor(modelItem => item.PROJECTNAME)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.COUNTRY)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LATITUDE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LONGITUDE)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.POSTALADDRESS)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PROJECTSTARTDATE)
+            </td>
+            
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.CN }) |
+                @Html.ActionLink("Details", "Details", new { id=item.CN }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.CN })
+            </td>
+        </tr>
+  
+
+        }
+       
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>@Html.ActionLink("Add New Project", "Create")</td>
+        </tr>
+    </table>
+</body>
+</html>

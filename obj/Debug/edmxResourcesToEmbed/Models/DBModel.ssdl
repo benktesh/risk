@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbRiskModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'dbRisk.dbo.RISKVALUES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="RISKVALUES">
+    <Key>
+      <PropertyRef Name="CN" />
+      <PropertyRef Name="DATESTAMP" />
+    </Key>
+    <Property Name="CN" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DATESTAMP" Type="datetime" Nullable="false" />
+    <Property Name="RISKDOCVERSION" Type="nvarchar" MaxLength="50" />
+    <Property Name="RISKCATEGORY" Type="nvarchar" MaxLength="50" />
+    <Property Name="COMPONENT" Type="nvarchar" MaxLength="50" />
+    <Property Name="PARAMETERID" Type="nvarchar" MaxLength="6" />
+    <Property Name="PARAMETERGROUP" Type="nvarchar" MaxLength="6" />
+    <Property Name="PARAMETERSHORT" Type="nvarchar" MaxLength="50" />
+    <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+    <Property Name="RISKSCORE" Type="int" />
+  </EntityType>
+  <EntityType Name="tblProjectDescription">
+    <Key>
+      <PropertyRef Name="CN" />
+    </Key>
+    <Property Name="CN" Type="real" Nullable="false" />
+    <Property Name="USERID" Type="nvarchar" MaxLength="50" />
+    <Property Name="PROJECTID" Type="nvarchar" MaxLength="50" />
+    <Property Name="PROJECTNAME" Type="nchar" MaxLength="10" />
+    <Property Name="COUNTRY" Type="nchar" MaxLength="10" />
+    <Property Name="LATITUDE" Type="nchar" MaxLength="10" />
+    <Property Name="LONGITUDE" Type="nchar" MaxLength="10" />
+    <Property Name="POSTALADDRESS" Type="nchar" MaxLength="100" />
+    <Property Name="PROJECTSTARTDATE" Type="datetime2" Precision="7" />
+    <Property Name="DATETIME" Type="timestamp" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="tblRisk">
+    <Key>
+      <PropertyRef Name="CN" />
+    </Key>
+    <Property Name="CN" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="PROJECTID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="USERID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SCENARIOID" Type="int" Nullable="false" />
+    <Property Name="DATE" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="PM_A" Type="int" Nullable="false" />
+    <Property Name="PM_B" Type="int" Nullable="false" />
+    <Property Name="PM_C" Type="int" Nullable="false" />
+    <Property Name="PM_D" Type="int" Nullable="false" />
+    <Property Name="PM_E" Type="int" Nullable="false" />
+    <Property Name="PM_F" Type="int" Nullable="false" />
+    <Property Name="FV_A_D" Type="int" Nullable="false" />
+    <Property Name="FV_A_D_NAME" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="FV_E_H" Type="int" Nullable="false" />
+    <Property Name="FV_E_H_NAME" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="FV_I" Type="int" Nullable="false" />
+    <Property Name="OC_A_F" Type="int" Nullable="false" />
+    <Property Name="OC_A_F_NAME" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="OC_G" Type="int" Nullable="false" />
+    <Property Name="OC_H_I" Type="int" Nullable="false" />
+    <Property Name="OC_H_I_NAME" Type="nchar" MaxLength="1" Nullable="false" />
+    <Property Name="PL" Type="int" Nullable="false" />
+    <Property Name="PL_NAME" Type="nchar" MaxLength="1" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="dbRiskModelStoreContainer">
+    <EntitySet Name="tblProjectDescription" EntityType="Self.tblProjectDescription" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblRisk" EntityType="Self.tblRisk" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RISKVALUES" EntityType="Self.RISKVALUES" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [RISKVALUES].[CN] AS [CN], 
+    [RISKVALUES].[DATESTAMP] AS [DATESTAMP], 
+    [RISKVALUES].[RISKDOCVERSION] AS [RISKDOCVERSION], 
+    [RISKVALUES].[RISKCATEGORY] AS [RISKCATEGORY], 
+    [RISKVALUES].[COMPONENT] AS [COMPONENT], 
+    [RISKVALUES].[PARAMETERID] AS [PARAMETERID], 
+    [RISKVALUES].[PARAMETERGROUP] AS [PARAMETERGROUP], 
+    [RISKVALUES].[PARAMETERSHORT] AS [PARAMETERSHORT], 
+    [RISKVALUES].[DESCRIPTION] AS [DESCRIPTION], 
+    [RISKVALUES].[RISKSCORE] AS [RISKSCORE]
+    FROM [dbo].[RISKVALUES] AS [RISKVALUES]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
