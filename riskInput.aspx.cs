@@ -261,19 +261,14 @@ namespace Risk
             String selectedIndicator = "";
 
             
-
-            
             for (int i = 0; i < 6; i++)
-            {
-                
+            {                
                 Debug.WriteLine("Beginning fetch " + DateTime.Now);
-
                 selectedIndicator = wgiIndicatorDefinition[i, 0];
                 Debug.Write("Selected indicator is " + selectedIndicator);
                 
                 StringBuilder s = new StringBuilder("http://api.worldbank.org/countries/" + selectedCountryId + "/indicators/" + selectedIndicator + "?source=3&format=json");
                 Debug.Write("The built URI is = " + s);
-
 
                 String getWgi = await RunAsync(s.ToString());
                 
@@ -286,36 +281,58 @@ namespace Risk
                     Response.Write(getWgi);
                     var obj = DeserializeJSon<List<wgiIndicator>>(getWgi);
                     //Debug.WriteLine(obj.ToString());
-
                     Debug.WriteLine("Working on indicator " + selectedIndicator);
                    //indicatorValues =  getIndicatorValues(obj);
-
                     wgiValues.Add(selectedIndicator, getIndicatorValues(obj));
-
-                }
-
-                
-
-                
-
+                }          
+                            
             }
 
+            String[,] result = new String[8, 7];
 
-            
+            result[0, 0] = "-";
+            int keyposition = 1;
+            foreach (var key in wgiValues.Keys)
+            {
+                result[keyposition, 0] = key.Substring(0, key.IndexOf("."));
+                keyposition++;                 
+            }
 
+            keyposition = 1;
+            bool firstPass = true;
+            foreach (var key in wgiValues.Keys)
+            {
+                var value = wgiValues[key];
 
-           
+                Debug.WriteLine(key +" : ");
+                for (int i = 0; i < 6; i++)
+                {
+                    if (firstPass)
+                        result[i, keyposition-1] = value[i, 0];
+                    result[i, keyposition] = value[i, 1];
+
+                    //result[0, 1] = value[i, 0];
+                    Debug.WriteLine(value[i, 0] + " " + value[i, 1]);
+                }
+                keyposition = keyposition + 1;
+                firstPass = false;
+                    
                 
-            
+            }
+            for (int j = 0; j < 7; j++)
+            for (int i = 0; i < 8; i++)
+               
+                {
+                    Debug.WriteLine(result[i,j]);
+                }
+
+                    Debug.WriteLine(result.ToString());
+
             //Response.Write("<SCRIPT> alert('Before async') </script>");
             //var uri = "http://api.worldbank.org/country?per_page=256&format=json";
             //Debug.WriteLine(uri);
             //String getWgi = "hello";
-
-
-       
-
-                /*
+            /*
              var obj = DeserializeJSon<List<Country>>(getWgi);
              
              var countryList = "var countryList = [[\"id\",\"iso2Code\",\"name\"],";
@@ -326,20 +343,11 @@ namespace Risk
 
              Response.Write(countryList);
               * */
-
             
-
-
-
-
-
-
-
          // List<Country> deserializedCountry = JsonConvert.DeserializeObject<List<Country>>(getWgi);
          /// Debug.WriteLine(deserializedCountry);
          //  Country country = deserializedCountry[0];
          //  Debug.WriteLine(country.ToString());
-
 
             /*
           DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<Country>));
@@ -371,7 +379,7 @@ namespace Risk
                     indicatorValues[count, 0] = i.date;
                     indicatorValues[count, 1] = i.value;
                     val = val + Double.Parse(i.value);
-                    Debug.WriteLine(count + " " + i.date + " " + i.value + "val is " + val);
+                   // Debug.WriteLine(count + " " + i.date + " " + i.value + "val is " + val);
                     count = count + 1;
                 }
                 else
@@ -380,11 +388,11 @@ namespace Risk
             indicatorValues[5, 0] = "Average";
             indicatorValues[5, 1] = Convert.ToString(val / (count));
 
-            Debug.WriteLine(indicatorValues.Length);
-            for (int i = 0; i < 6; i++)
-            {
-                Debug.WriteLine(indicatorValues[i, 0] + " " + indicatorValues[i, 1]);
-            }
+           // Debug.WriteLine(indicatorValues.Length);
+          //  for (int i = 0; i < 6; i++)
+           // {
+                //Debug.WriteLine(indicatorValues[i, 0] + " " + indicatorValues[i, 1]);
+            //}
 
             return indicatorValues;
         }
