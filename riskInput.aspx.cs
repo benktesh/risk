@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Text;
+using System.Data;
 
 
 
@@ -168,7 +169,6 @@ namespace Risk
             public string surname { get; set; }
             [DataMember]
             public int age { get; set; }
-
             [DataMember]
             public Address address { get; set; }
         }
@@ -178,12 +178,9 @@ namespace Risk
         {
             [DataMember]
             public string line1 { get; set; }
-            [DataMember]
-            
+            [DataMember]            
             public string line2 { get; set; }
-        }
-
-        
+        }        
  
         [DataContract]
         public class Indicator {
@@ -191,15 +188,13 @@ namespace Risk
             public string id { get; set;}
             [DataMember]
             public string value { get; set;}
-
         }
-         [DataContract]
+        [DataContract]
         public class CountryIndicator {
             [DataMember]
             public string id { get; set;}
             [DataMember]
             public string value { get; set;}
-
         }
         [DataContract]
         public class wgiIndicator {
@@ -216,8 +211,7 @@ namespace Risk
         }
 
         public static T DeserializeJSon<T>(string jsonString)
-        {
-            
+        {            
             try
             {
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(T));
@@ -229,23 +223,18 @@ namespace Risk
             {
                 Debug.WriteLine("An exception occured while deserializing jsonString " + jsonString + e.Message);
                 return default(T);
-            }
-            
-           
+            }                      
         }
 
         protected async void bgGetWBData_Click(object sender, EventArgs e)
         {
-
-
             var selectedCountryId = dropCountryList.SelectedValue;
            // Debug.WriteLine(dropCountryList.SelectedItem.Value);
            // Debug.WriteLine(dropCountryList.SelectedValue);
            // Debug.WriteLine(dropCountryList.Items[dropCountryList.SelectedIndex].Value);
             
             Debug.WriteLine("The selected country : " + dropCountryList.SelectedItem.Value);
-           // Debug.WriteLine(selectedCountryId);
-            
+           // Debug.WriteLine(selectedCountryId);          
             
             String[,] wgiIndicatorDefinition = new String[6,3]
                 {
@@ -259,7 +248,6 @@ namespace Risk
 
             var  wgiValues = new Dictionary<string, string[,]>();
             String selectedIndicator = "";
-
             
             for (int i = 0; i < 6; i++)
             {                
@@ -278,19 +266,19 @@ namespace Risk
                     Response.Write(getWgi);
                 else
                 {
-                    Response.Write(getWgi);
+                    //Response.Write(getWgi);
                     var obj = DeserializeJSon<List<wgiIndicator>>(getWgi);
                     //Debug.WriteLine(obj.ToString());
-                    Debug.WriteLine("Working on indicator " + selectedIndicator);
+                    //Debug.WriteLine("Working on indicator " + selectedIndicator);
                    //indicatorValues =  getIndicatorValues(obj);
                     wgiValues.Add(selectedIndicator, getIndicatorValues(obj));
-                }          
-                            
+                }                       
             }
-
             String[,] result = new String[8, 7];
 
-            result[0, 0] = "-";
+            result[0, 0] = "Indicator/Year";
+            result[7, 0] = "Average";
+            result[0, 6] = "Average";
             int keyposition = 1;
             foreach (var key in wgiValues.Keys)
             {
@@ -298,35 +286,77 @@ namespace Risk
                 keyposition++;                 
             }
 
+
+            var keyCC = wgiValues["CC.EST"];
+            
+        
+            
+            String msg = "printing result";
+            
+            
             keyposition = 1;
             bool firstPass = true;
             foreach (var key in wgiValues.Keys)
             {
                 var value = wgiValues[key];
-
                 Debug.WriteLine(key +" : ");
                 for (int i = 0; i < 6; i++)
                 {
                     if (firstPass)
-                        result[i, keyposition-1] = value[i, 0];
-                    result[i, keyposition] = value[i, 1];
-
+                    {
+                        result[0, i+1] = value[i, 0];
+                    }
+                    //result[keyposition, i + 1] = Convert.ToString(Math.Round(Convert.ToDecimal(value[i, 1]), 2)); 
+                    result[keyposition, i + 1] = value[i, 1]; 
                     //result[0, 1] = value[i, 0];
-                    Debug.WriteLine(value[i, 0] + " " + value[i, 1]);
+                    //Debug.WriteLine(value[i, 0] + " " + value[i, 1]);
+                    
                 }
                 keyposition = keyposition + 1;
                 firstPass = false;
-                    
-                
             }
-            for (int j = 0; j < 7; j++)
-            for (int i = 0; i < 8; i++)
-               
-                {
-                    Debug.WriteLine(result[i,j]);
-                }
 
-                    Debug.WriteLine(result.ToString());
+            for (int i = 1; i <= 6; i++)
+            {
+                Double yearAverage = 0.00;
+                for (int j = 1; j <= 6; j++ )
+                {
+                    yearAverage = yearAverage + Convert.ToDouble(result[j,i]);
+                    result[j, i] = Convert.ToString(Math.Round(Convert.ToDouble(result[j, i]),2));
+                    //Debug.WriteLine(result[i, j]);
+                }
+                result[7, i] = Convert.ToString(Math.Round(yearAverage/6, 2));  
+            }
+
+            var datatable = new DataTable("dtWgiIndicator");
+
+            for (int i = 0; i < 7; i++)
+            {
+                datatable.Columns.Add(result[0, i]);
+            }
+            var row = new String[7];
+            for (int j = 1; j < 8; j++)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    row[i] = (result[j, i]);
+
+                }
+                datatable.Rows.Add(row);
+            }
+
+                   
+           
+
+            msg = format2DArray(result);
+            Debug.Print(msg);
+
+            GridView1.DataSource = datatable;
+            GridView1.DataBind();
+
+            wgiSelector(Convert.ToDouble(result[7,6]));
+
+           
 
             //Response.Write("<SCRIPT> alert('Before async') </script>");
             //var uri = "http://api.worldbank.org/country?per_page=256&format=json";
@@ -357,6 +387,57 @@ namespace Risk
               Console.WriteLine(c.ToString());
             */
             
+        }
+
+        private void  wgiSelector (double x)
+        {
+            Debug.WriteLine("Cekcing the value of for radio selection " + x);
+            if (x >= 0.82)
+            {
+                RadioButton_PR5.Checked = true;
+                return;
+            }
+            else if (x >= 0.19)
+            {
+                RadioButton_PR4.Checked = true;
+                return;
+            }
+            else if (x >= -0.32)
+            {
+                RadioButton_PR3.Checked = true;
+            
+                 return;
+            }
+            else if (x >= -0.79)
+            {
+                RadioButton_PR2.Checked = true;
+                return;
+            }
+            else
+            {
+                RadioButton_PR1.Checked = true;
+                return;
+            }
+
+        }
+
+        private String format2DArray(String[,] a)
+        {
+            //msg = "Test 2D array print : ";
+            String msg = "";
+            for (int i = 0; i <= a.GetUpperBound(0); i++)
+            {
+                msg = msg + "\n ";
+                for (int x = 0; x <= a.GetUpperBound(1); x++)
+                {
+                    if (x == a.GetUpperBound(1))
+                        msg = msg + a[i, x];
+                    else
+                        msg = msg + a[i, x] + ",";
+                }
+            }
+            //Debug.WriteLine(msg);
+            return msg;
         }
 
         private static String[,] getIndicatorValues(List<wgiIndicator> obj)
@@ -414,7 +495,7 @@ namespace Risk
                 HttpResponseMessage response = await client.GetAsync(uri);          
 
                 String  responseBody="";
-                Debug.WriteLine(response.IsSuccessStatusCode);
+                //Debug.WriteLine(response.IsSuccessStatusCode);
                 //Debug.WriteLine(response.ToString());
 
                 if (response.IsSuccessStatusCode)

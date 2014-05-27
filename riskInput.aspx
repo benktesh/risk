@@ -72,6 +72,7 @@
                     functPM();
                     functFV();
                     functOC();
+                    functPR();
                 }
              
                 
@@ -259,6 +260,34 @@
 
         };
 
+
+        function functPR() {
+            var totalPR = 0; var i = 0;
+            var selectedPR = [];
+            $(".prCheckBox").each(function () {
+                //console.log((this.id));
+                var valueID = ("#politicalRiskValue" + (i + 1));
+                var chkbxId = '#' + this.id;
+                //console.log($(chkbxId).is(':checked'));
+                if ($(chkbxId).is(':checked')) {
+                    totalPR = totalPR +
+                         parseInt(politicalParameter[i][2]);
+                    $(valueID).html(politicalParameter[i][2]);
+                    selectedPR.push({
+                        id: politicalParameter[i][0],
+                        selectedValue: politicalParameter[i][2]
+                    });
+                }
+                else {
+                    $(valueID).html('-');
+                }
+                i++;
+            });
+            $('#totalPM').html(totalPM);
+            // console.log('Total elements ' + i);
+            return selectedPM;
+        };
+
       
         
        
@@ -277,6 +306,8 @@
                     <asp:DropDownList ID="dropCountryList"  runat="server" Height="27px" Width="115px">
                     </asp:DropDownList>
                     <asp:Button ID="bgGetWBData" runat="server" OnClick="bgGetWBData_Click" Text="Get WB WGI" Height="27px" />
+                    <asp:GridView ID="GridView1" runat="server" BorderColor="#FFCC00" BorderStyle="Solid" BorderWidth="1px">
+                    </asp:GridView>
                     <br />
                     <a href="#" class="aPM">Project Management</a> </td>
                 <td id="totalPM" style="width:10%; border:none; text-align:center">0</td>
